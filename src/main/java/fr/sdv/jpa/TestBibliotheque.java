@@ -17,12 +17,12 @@ public class TestBibliotheque {
         EntityManager em = emf.createEntityManager();
 
         // Récupérer une instance
-        TypedQuery<Emprunt> query = em.createQuery("SELECT emprunt from Emprunt emprunt WHERE id.client = 1", Emprunt.class);
+        TypedQuery<Emprunt> query = em.createQuery("SELECT e from Emprunt e WHERE e.client.id = 1", Emprunt.class);
         Emprunt unEmprunt = query.getResultList().get(0);
         System.out.println(unEmprunt);
 
-        TypedQuery<Emprunt> query2 = em.createQuery("SELECT client from Emprunt emprunt WHERE id = 1", Emprunt.class);
-        Emprunt unClient = query2.getResultList().get(0);
+        TypedQuery<Client> query2 = em.createQuery("SELECT c from Client c LEFT JOIN c.emprunts WHERE c.id = 1", Client.class);
+        Client unClient = query2.getResultList().get(0);
         System.out.println(unClient);
     }
 }
